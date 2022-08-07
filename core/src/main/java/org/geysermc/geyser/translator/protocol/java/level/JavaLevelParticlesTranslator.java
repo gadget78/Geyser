@@ -98,6 +98,16 @@ public class JavaLevelParticlesTranslator extends PacketTranslator<ClientboundLe
                     return packet;
                 };
             }
+            case MARKER_BLOCK -> {
+                int blockState = session.getBlockMappings().getBedrockBlockId(((BlockParticleData) particle.getData()).getBlockState());
+                return (position) -> {
+                    LevelEventPacket packet = new LevelEventPacket();
+                    packet.setType(LevelEventType.PARTICLE_FALLING_DUST);
+                    packet.setPosition(position);
+                    packet.setData(blockState);
+                    return packet;
+                };
+            }
             case FALLING_DUST -> {
                 int blockState = session.getBlockMappings().getBedrockBlockId(((FallingDustParticleData) particle.getData()).getBlockState());
                 return (position) -> {
@@ -122,7 +132,7 @@ public class JavaLevelParticlesTranslator extends PacketTranslator<ClientboundLe
                     return packet;
                 };
             }
-            case DUST, BLOCK_MARKER, DUST_COLOR_TRANSITION -> { //TODO
+            case DUST, DUST_COLOR_TRANSITION -> { //TODO
                 DustParticleData data = (DustParticleData) particle.getData();
                 int r = (int) (data.getRed() * 255);
                 int g = (int) (data.getGreen() * 255);
