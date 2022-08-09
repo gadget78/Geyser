@@ -98,13 +98,14 @@ public class JavaLevelParticlesTranslator extends PacketTranslator<ClientboundLe
                     return packet;
                 };
             }
-            case MARKER_BLOCK -> {
+            case BLOCK_MARKER -> {
                 int blockState = session.getBlockMappings().getBedrockBlockId(((BlockParticleData) particle.getData()).getBlockState());
                 return (position) -> {
                     LevelEventPacket packet = new LevelEventPacket();
                     packet.setType(LevelEventType.PARTICLE_FALLING_DUST);
                     packet.setPosition(position);
-                    packet.setData(blockState);
+                    packet.setData(blockState)
+                    packet.setScale(4);
                     return packet;
                 };
             }
