@@ -105,7 +105,6 @@ public class JavaLevelParticlesTranslator extends PacketTranslator<ClientboundLe
                     packet.setType(LevelEventType.PARTICLE_FALLING_DUST);
                     packet.setPosition(position);
                     packet.setData(blockState)
-                    packet.setScale(4);
                     return packet;
                 };
             }
